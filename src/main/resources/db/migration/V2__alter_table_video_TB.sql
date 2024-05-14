@@ -1,0 +1,1 @@
+ALTER TABLE `aluraflix_db`.`videos_TB` RENAME TO  `aluraflix_db`.`videos_tb` ;

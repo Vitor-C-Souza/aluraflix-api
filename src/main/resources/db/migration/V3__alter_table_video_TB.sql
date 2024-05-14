@@ -1,0 +1,1 @@
+ALTER TABLE `aluraflix_db`.`videos_tb` CHANGE COLUMN `titulo` `titulo` VARCHAR(255) NOT NULL ;
