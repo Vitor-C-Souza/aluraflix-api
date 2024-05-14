@@ -43,14 +43,14 @@ public class VideoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDto dto) {
-        service.updateVideo(id, dto);
-        return ResponseEntity.ok().body("Video de id:" + id + " Atualizado com sucesso!!!!");
+    public ResponseEntity<VideoDto> updateVideo(@PathVariable Long id, @RequestBody @Valid VideoDto dto) {
+        VideoDto updatedVideo = service.updateVideo(id, dto);
+        return ResponseEntity.ok().body(updatedVideo);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVideo(@PathVariable Long id) {
         service.deleteVideo(id);
-        return ResponseEntity.ok().body("Video de id:" + id + " deletado!!!!");
+        return ResponseEntity.noContent().build();
     }
 }

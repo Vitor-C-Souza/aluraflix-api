@@ -38,10 +38,12 @@ public class VideoService {
         return dto;
     }
 
-    public void updateVideo(Long id, VideoDto dto) {
+    public VideoDto updateVideo(Long id, VideoDto dto) {
         Video video = repository.getReferenceById(id);
         video.update(dto);
         repository.save(video);
+        dto.setId(video.getId());
+        return dto;
     }
 
     public void deleteVideo(Long id) {
