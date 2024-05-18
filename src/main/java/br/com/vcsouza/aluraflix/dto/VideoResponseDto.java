@@ -1,32 +1,24 @@
 package br.com.vcsouza.aluraflix.dto;
 
 import br.com.vcsouza.aluraflix.model.Video;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-public class VideoDto {
+public class VideoResponseDto {
     private Long id;
-    @NotBlank
     private String titulo;
-    @NotBlank
     private String descricao;
-    @NotBlank
     private String url;
-    private Long categoria_id = 1L;
+    private CategoriaDto categoria;
 
-
-    public VideoDto(Video video) {
-        this.id = video.getId();
+    public VideoResponseDto(Video video) {
         this.titulo = video.getTitulo();
         this.descricao = video.getDescricao();
         this.url = video.getUrl();
-        this.categoria_id = video.getCategoria().getId();
+        this.categoria = new CategoriaDto(video.getCategoria());
     }
 }

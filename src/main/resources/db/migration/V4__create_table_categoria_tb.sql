@@ -1,0 +1,6 @@
+CREATE TABLE categorias_tb  (
+    id BIGINT(20) NOT NULL UNIQUE AUTO_INCREMENT,
+    titulo VARCHAR(255) NOT NULL,
+    cor VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+)
