@@ -7,10 +7,14 @@ import br.com.vcsouza.aluraflix.model.Categoria;
 import br.com.vcsouza.aluraflix.model.Video;
 import br.com.vcsouza.aluraflix.repository.CategoriaRepository;
 import br.com.vcsouza.aluraflix.repository.VideoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoService {
@@ -59,5 +63,14 @@ public class VideoService {
 
     public Page<Video> searchVideoForTitulo(String search, Pageable paginacao) {
         return repository.searchVideo(search, paginacao);
+    }
+
+    public List<VideoDto> freeVideo() {
+        List<Video> videoList = repository.freeVideos();
+        if(videoList == null){
+            throw new EntityNotFoundException();
+        }
+
+        return videoList.stream().map(VideoDto::new).collect(Collectors.toList());
     }
 }

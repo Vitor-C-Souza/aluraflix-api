@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/videos")
@@ -25,7 +26,7 @@ public class VideoController {
     private VideoService service;
 
     @GetMapping
-    public Page<VideoDto> listarVideos(@PageableDefault(size = 15) Pageable paginacao) {
+    public Page<VideoDto> listarVideos(@PageableDefault(size = 5) Pageable paginacao) {
         Page<Video> dto = service.findall(paginacao);
         if (dto == null) {
             throw new videoNotFoundException("Nenhum video encontrado!!!!");
@@ -67,9 +68,15 @@ public class VideoController {
     }
 
     @GetMapping("/")
-    public Page<VideoDto> searchVideoForTitulo(@RequestParam String search, @PageableDefault Pageable paginacao) {
+    public Page<VideoDto> searchVideoForTitulo(@RequestParam String search, @PageableDefault(size = 5) Pageable paginacao) {
         System.out.println(search);
         var dto = service.searchVideoForTitulo(search, paginacao);
         return dto.map(VideoDto::new);
+    }
+
+    @GetMapping("/free")
+    public ResponseEntity<List<VideoDto>> listaVideosAcessoLivre(){
+        List<VideoDto> videos = service.freeVideo();
+        return ResponseEntity.ok().body(videos);
     }
 }

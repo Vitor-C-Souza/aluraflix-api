@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
@@ -16,4 +18,7 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     @Query("SELECT v FROM Video v WHERE v.titulo LIKE :search%")
     Page<Video> searchVideo(String search, Pageable paginacao);
+
+    @Query(value = "SELECT * FROM videos_tb LIMIT 5", nativeQuery = true)
+    List<Video> freeVideos();
 }

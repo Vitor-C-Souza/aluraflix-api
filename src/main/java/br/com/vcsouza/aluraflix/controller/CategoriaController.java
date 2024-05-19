@@ -29,7 +29,7 @@ public class CategoriaController {
     private CategoriaService service;
 
     @GetMapping
-    public Page<CategoriaDto> listarCategorias(@PageableDefault Pageable paginacao) {
+    public Page<CategoriaDto> listarCategorias(@PageableDefault(size = 5) Pageable paginacao) {
         Page<Categoria> categorias = service.findAll(paginacao);
         if(categorias == null){
             throw new categoriaNotFoundException();
@@ -69,7 +69,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}/videos")
-    public Page<VideoSemCategoriaIdDto> procuraVideoPorCategoria(@PathVariable Long id, @PageableDefault Pageable paginacao) {
+    public Page<VideoSemCategoriaIdDto> procuraVideoPorCategoria(@PathVariable Long id, @PageableDefault(size = 5) Pageable paginacao) {
 
         Page<Video> dto = service.listarVideosPorCategoria(id, paginacao);
         if(dto==null){
