@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: 6040
 
   spring:
-    image: makinay/aluraflix-api:1.0
+    image: makinay/aluraflix-api:1.1
     container_name: aluraflix-api
     networks:
       - aluraflix
