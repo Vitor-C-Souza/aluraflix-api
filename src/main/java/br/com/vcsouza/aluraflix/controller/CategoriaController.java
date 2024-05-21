@@ -1,14 +1,15 @@
 package br.com.vcsouza.aluraflix.controller;
 
 
-import br.com.vcsouza.aluraflix.dto.CategoriaDto;
-import br.com.vcsouza.aluraflix.dto.VideoSemCategoriaIdDto;
-import br.com.vcsouza.aluraflix.exception.NullCategoriaCreatedException;
-import br.com.vcsouza.aluraflix.exception.categoriaNotFoundException;
-import br.com.vcsouza.aluraflix.exception.videoNotFoundException;
-import br.com.vcsouza.aluraflix.model.Categoria;
-import br.com.vcsouza.aluraflix.model.Video;
-import br.com.vcsouza.aluraflix.service.CategoriaService;
+import br.com.vcsouza.aluraflix.domain.dto.CategoriaDto;
+import br.com.vcsouza.aluraflix.domain.dto.VideoSemCategoriaIdDto;
+import br.com.vcsouza.aluraflix.infra.exception.NullCategoriaCreatedException;
+import br.com.vcsouza.aluraflix.infra.exception.categoriaNotFoundException;
+import br.com.vcsouza.aluraflix.infra.exception.videoNotFoundException;
+import br.com.vcsouza.aluraflix.domain.model.Categoria;
+import br.com.vcsouza.aluraflix.domain.model.Video;
+import br.com.vcsouza.aluraflix.domain.service.CategoriaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/categorias")
+@SecurityRequirement(name = "bearer-key")
 public class CategoriaController {
 
     @Autowired

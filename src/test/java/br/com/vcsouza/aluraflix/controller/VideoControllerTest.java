@@ -1,11 +1,14 @@
 package br.com.vcsouza.aluraflix.controller;
 
-import br.com.vcsouza.aluraflix.dto.CategoriaDto;
-import br.com.vcsouza.aluraflix.dto.VideoDto;
-import br.com.vcsouza.aluraflix.dto.VideoResponseDto;
-import br.com.vcsouza.aluraflix.model.Categoria;
-import br.com.vcsouza.aluraflix.model.Video;
-import br.com.vcsouza.aluraflix.service.VideoService;
+import br.com.vcsouza.aluraflix.domain.dto.CategoriaDto;
+import br.com.vcsouza.aluraflix.domain.dto.VideoDto;
+import br.com.vcsouza.aluraflix.domain.dto.VideoResponseDto;
+import br.com.vcsouza.aluraflix.domain.model.Categoria;
+import br.com.vcsouza.aluraflix.domain.model.Login;
+import br.com.vcsouza.aluraflix.domain.model.Video;
+import br.com.vcsouza.aluraflix.infra.security.TokenService;
+import br.com.vcsouza.aluraflix.domain.service.VideoService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -43,6 +46,20 @@ class VideoControllerTest {
 
     private final VideoDto dto = new VideoDto();
 
+    private Login login = new Login();
+
+    private String token;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @BeforeEach
+    void setUp(){
+        login.setUsuario("vitor");
+        login.setSenha("6040");
+        token = tokenService.GerarToken(login);
+    }
+
     @Test
     void deveriaDevolverCodigo200ParaRequisicaoDeListarVideos() throws Exception {
         //ARRANGE
@@ -63,6 +80,7 @@ class VideoControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 get("/videos")
+                        .header("Authorization", "Bearer " + token)
                         .param("page", "0")
                         .param("size", "15")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -79,6 +97,7 @@ class VideoControllerTest {
         //ACT
         var response = mockMvc.perform(
                 get("/videos/1")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT
@@ -113,6 +132,7 @@ class VideoControllerTest {
 
         var response = mockMvc.perform(
                 post("/videos")
+                        .header("Authorization", "Bearer " + token)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -148,6 +168,7 @@ class VideoControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 put("/videos/" + id)
+                        .header("Authorization", "Bearer " + token)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -166,6 +187,7 @@ class VideoControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 delete("/videos/1")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT
@@ -191,6 +213,7 @@ class VideoControllerTest {
         // ACT
         var response = mockMvc.perform(
                 get("/videos/")
+                        .header("Authorization", "Bearer " + token)
                         .param("search", search)
                         .param("page", "0")
                         .param("size", "10")

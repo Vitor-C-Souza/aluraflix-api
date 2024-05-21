@@ -1,11 +1,12 @@
 package br.com.vcsouza.aluraflix.controller;
 
-import br.com.vcsouza.aluraflix.dto.VideoDto;
-import br.com.vcsouza.aluraflix.dto.VideoResponseDto;
-import br.com.vcsouza.aluraflix.exception.videoNotFoundException;
-import br.com.vcsouza.aluraflix.exception.videoNotSavedException;
-import br.com.vcsouza.aluraflix.model.Video;
-import br.com.vcsouza.aluraflix.service.VideoService;
+import br.com.vcsouza.aluraflix.domain.dto.VideoDto;
+import br.com.vcsouza.aluraflix.domain.dto.VideoResponseDto;
+import br.com.vcsouza.aluraflix.infra.exception.videoNotFoundException;
+import br.com.vcsouza.aluraflix.infra.exception.videoNotSavedException;
+import br.com.vcsouza.aluraflix.domain.model.Video;
+import br.com.vcsouza.aluraflix.domain.service.VideoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/videos")
+@SecurityRequirement(name = "bearer-key")
 public class VideoController {
 
     @Autowired

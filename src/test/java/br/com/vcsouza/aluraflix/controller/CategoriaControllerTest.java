@@ -1,10 +1,13 @@
 package br.com.vcsouza.aluraflix.controller;
 
 
-import br.com.vcsouza.aluraflix.dto.CategoriaDto;
-import br.com.vcsouza.aluraflix.model.Categoria;
-import br.com.vcsouza.aluraflix.model.Video;
-import br.com.vcsouza.aluraflix.service.CategoriaService;
+import br.com.vcsouza.aluraflix.domain.dto.CategoriaDto;
+import br.com.vcsouza.aluraflix.domain.model.Categoria;
+import br.com.vcsouza.aluraflix.domain.model.Login;
+import br.com.vcsouza.aluraflix.domain.model.Video;
+import br.com.vcsouza.aluraflix.infra.security.TokenService;
+import br.com.vcsouza.aluraflix.domain.service.CategoriaService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +36,27 @@ class CategoriaControllerTest {
     @MockBean
     private CategoriaService service;
 
+    private Login login = new Login();
+
     @Mock
     private Categoria categoria;
 
     private CategoriaDto dto;
 
+    private String token;
+
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @BeforeEach
+    void setUp(){
+        login.setUsuario("vitor");
+        login.setSenha("6040");
+        token = tokenService.GerarToken(login);
+    }
 
     @Test
     void deveriaDevolverCodigo200ParaRequisicaoDeListarCategorias() throws Exception {
@@ -50,16 +67,17 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 get("/categorias")
+                        .header("Authorization", "Bearer " + token)
                         .param("page", "0")
                         .param("size", "10")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 
+        String responseBody = response.getContentAsString();
+        System.out.println("Resposta: " + responseBody);
         //ASSERT
         assertEquals(200, response.getStatus());
 
-        String responseBody = response.getContentAsString();
-        System.out.println("Resposta: " + responseBody);
     }
 
     @Test
@@ -78,6 +96,7 @@ class CategoriaControllerTest {
         //ACT
         var response = mockMvc.perform(
                 post("/categorias")
+                        .header("Authorization", "Bearer " + token)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -100,6 +119,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 post("/categorias")
+                        .header("Authorization", "Bearer " + token)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -113,6 +133,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 get("/categorias/1")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT
@@ -124,6 +145,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 get("/categorias/a")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT
@@ -143,6 +165,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 put("/categorias/1")
+                        .header("Authorization", "Bearer " + token)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -162,6 +185,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 put("/categorias/1")
+                        .header("Authorization", "Bearer " + token)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -177,6 +201,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 delete("/categorias/1")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT
@@ -190,6 +215,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 delete("/categorias/a")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT
@@ -208,6 +234,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 get("/categorias/1/videos")
+                        .header("Authorization", "Bearer " + token)
                         .param("page", "0")
                         .param("size", "10")
         ).andReturn().getResponse();
@@ -227,6 +254,7 @@ class CategoriaControllerTest {
         //ACT
         MockHttpServletResponse response = mockMvc.perform(
                 get("/categorias/a/videos")
+                        .header("Authorization", "Bearer " + token)
         ).andReturn().getResponse();
 
         //ASSERT

@@ -1,10 +1,10 @@
 package br.com.vcsouza.aluraflix.controller;
 
-import br.com.vcsouza.aluraflix.dto.LoginDto;
-import br.com.vcsouza.aluraflix.dto.TokenJWT;
-import br.com.vcsouza.aluraflix.model.Login;
-import br.com.vcsouza.aluraflix.security.TokenService;
-import br.com.vcsouza.aluraflix.service.LoginService;
+import br.com.vcsouza.aluraflix.domain.dto.LoginDto;
+import br.com.vcsouza.aluraflix.domain.dto.TokenJWT;
+import br.com.vcsouza.aluraflix.domain.model.Login;
+import br.com.vcsouza.aluraflix.infra.security.TokenService;
+import br.com.vcsouza.aluraflix.domain.service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

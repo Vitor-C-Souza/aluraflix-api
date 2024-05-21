@@ -1,11 +1,12 @@
 package br.com.vcsouza.aluraflix.service;
 
-import br.com.vcsouza.aluraflix.dto.CategoriaDto;
-import br.com.vcsouza.aluraflix.exception.categoriaNotFoundException;
-import br.com.vcsouza.aluraflix.model.Categoria;
-import br.com.vcsouza.aluraflix.model.Video;
-import br.com.vcsouza.aluraflix.repository.CategoriaRepository;
-import br.com.vcsouza.aluraflix.repository.VideoRepository;
+import br.com.vcsouza.aluraflix.domain.dto.CategoriaDto;
+import br.com.vcsouza.aluraflix.domain.service.CategoriaService;
+import br.com.vcsouza.aluraflix.infra.exception.categoriaNotFoundException;
+import br.com.vcsouza.aluraflix.domain.model.Categoria;
+import br.com.vcsouza.aluraflix.domain.model.Video;
+import br.com.vcsouza.aluraflix.domain.repository.CategoriaRepository;
+import br.com.vcsouza.aluraflix.domain.repository.VideoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

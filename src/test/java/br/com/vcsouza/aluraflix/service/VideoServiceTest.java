@@ -1,11 +1,12 @@
 package br.com.vcsouza.aluraflix.service;
 
-import br.com.vcsouza.aluraflix.dto.VideoDto;
-import br.com.vcsouza.aluraflix.dto.VideoResponseDto;
-import br.com.vcsouza.aluraflix.model.Categoria;
-import br.com.vcsouza.aluraflix.model.Video;
-import br.com.vcsouza.aluraflix.repository.CategoriaRepository;
-import br.com.vcsouza.aluraflix.repository.VideoRepository;
+import br.com.vcsouza.aluraflix.domain.dto.VideoDto;
+import br.com.vcsouza.aluraflix.domain.dto.VideoResponseDto;
+import br.com.vcsouza.aluraflix.domain.model.Categoria;
+import br.com.vcsouza.aluraflix.domain.model.Video;
+import br.com.vcsouza.aluraflix.domain.repository.CategoriaRepository;
+import br.com.vcsouza.aluraflix.domain.repository.VideoRepository;
+import br.com.vcsouza.aluraflix.domain.service.VideoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
