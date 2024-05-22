@@ -7,10 +7,11 @@ O sistema conta ainda por autenticação por Token JWT para segurança dos dados
 
 ## Índice
 1. [Instalação](#instalação)
-2. [Uso](#uso)
-3. [Rotas da API](#rotas-da-api)
-4. [Testes](#testes)
-5. [Contribuição](#contribuição)
+2. [Configuração](#Configuração)
+3. [Uso](#uso)
+4. [Rotas da API](#rotas-da-api)
+5. [Testes](#testes)
+6. [Contribuição](#contribuição)
 
 ## Instalação
 ### Pré-requisitos
@@ -25,6 +26,27 @@ O sistema conta ainda por autenticação por Token JWT para segurança dos dados
     git clone https://github.com/Vitor-C-Souza/aluraflix-api.git
     cd aluraflix-api
     ```
+2. Compile o projeto e instale as dependências:
+```bash
+  mvn clean install
+```
+   
+## Configuração
+1. Crie um arquivo application.properties na pasta src/main/resources e configure as seguintes propriedades:
+```bash
+   # Configurações do Banco de Dados
+   spring.datasource.url=jdbc:mysql://localhost:3306/aluraflix_db?createDatabaseIfNotExist=true
+   spring.datasource.username=seu_usuario
+   spring.datasource.password=sua_senha
+   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   
+   # Configurações de JPA/Hibernate
+   hibernate.dialect=org.hibernate.dialect.HSQLDialect
+   spring.jpa.show-sql=true
+   
+   # Configurações de Segurança
+   api.security.token.secret=${JWT_SECRET:12345678}
+```
 
 ## Uso
 Para iniciar o servidor execute o seguinte na raiz do projeto
@@ -34,9 +56,9 @@ Para iniciar o servidor execute o seguinte na raiz do projeto
     ```
 2. Se não tiver docker instalado:
      ```bash
-    mvn package
-    java -jar target/*.jar
+    mvn spring-boot:run
     ```
+Obs.: Precisa ter o mysql instalado e funcionando neste caso
 
 ## Rotas da API
 ### POST /cadastro
@@ -499,8 +521,8 @@ Retorn 5 videos salvos esta rota não precisa de autenticação, pois é uma amo
     ]
 ```
 
-## Teste
-Se quiser testar, mas não tem Postman instalado tem esta url que pode testar cada rota da api,
+## Testes
+Se quiser testar, mas não tem Postman ou outra ferramenta para testar API's instalado tem esta url que pode testar cada rota da api,
 `http://localhost:8080/swagger-ui/index.html#/`.<br>
 Obs.: Precisar ter iniciado o servidor para esta url funcionar.
 
